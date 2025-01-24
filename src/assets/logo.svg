@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Background Circle -->
+  <circle cx="100" cy="100" r="90" fill="#FF4B3A" />
+  
+  <!-- Building/Campus Icon -->
+  <path d="M75 140V90L100 70L125 90V140" 
+        stroke="#FFF" 
+        stroke-width="8" 
+        fill="none" 
+        stroke-linecap="round" 
+        stroke-linejoin="round" />
+  
+  <!-- Door -->
+  <rect x="90" y="115" width="20" height="25" fill="#FFF" rx="2" />
+  
+  <!-- Delivery Path -->
+  <path d="M40 100C40 70 60 50 100 50C140 50 160 70 160 100" 
+        stroke="#FFF" 
+        stroke-width="8" 
+        fill="none" 
+        stroke-linecap="round" 
+        stroke-dasharray="4 8" />
+  
+  <!-- Delivery dot -->
+  <circle cx="160" cy="100" r="8" fill="#FFF" />
+  
+  <!-- Windows -->
+  <rect x="85" y="95" width="10" height="10" fill="#FFF" rx="1" />
+  <rect x="105" y="95" width="10" height="10" fill="#FFF" rx="1" />
+</svg>
