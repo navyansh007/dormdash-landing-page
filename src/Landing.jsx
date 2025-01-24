@@ -4,6 +4,7 @@ import {
     Box, ThemeIcon, Group, NumberInput
 } from '@mantine/core';
 import { ArrowRight, Utensils, Bike, Shield } from 'lucide-react';
+import axios from 'axios';
 import { useState } from 'react';
 export function Landing() {
 
@@ -27,18 +28,14 @@ export function Landing() {
                 throw new Error('Please use your Manipal University email address');
             }
      
-            const response = await fetch('YOUR_API_ENDPOINT', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    email: formData.email,
-                    name: formData.name, 
-                    year: formData.year,
-                    regNumber: formData.regNumber
-                })
-            });
-     
-            if (!response.ok) {
+            const response = await axios.post('https://mail.api.dormdash.app/api/waitlist', {
+                email: formData.email,
+                name: formData.name,
+                year: formData.year,
+                regNumber: formData.regNumber
+              });
+              console.log(response)
+            if (response.status !== 200) {
                 throw new Error('Failed to join waitlist');
             }
      
