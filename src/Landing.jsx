@@ -1,13 +1,17 @@
 import {
     Container, Title, Text, Button, Card, SimpleGrid,
     Stack, TextInput, AppShell, Center, Divider,
-    Box, ThemeIcon, Group, NumberInput
+    Box, ThemeIcon, Group, NumberInput,
+    Image
 } from '@mantine/core';
-import { ArrowRight, Utensils, Bike, Shield } from 'lucide-react';
+import { ArrowRight, Utensils, Bike, Shield, ArrowDown } from 'lucide-react';
 import axios from 'axios';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import Logo from './assets/SVG/4.2.svg'
+
 export function Landing() {
 
+    const formRef = useRef(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState(false);
@@ -18,34 +22,38 @@ export function Landing() {
         regNumber: ''
     });
 
+    const scrollToForm = () => {
+        formRef.current?.scrollIntoView({ behavior: 'smooth' });
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
         setError('');
-     
+
         try {
             if (!formData.email.endsWith('@muj.manipal.edu')) {
                 throw new Error('Please use your Manipal University email address');
             }
-     
+
             const response = await axios.post('https://mail.api.dormdash.app/api/waitlist', {
                 email: formData.email,
                 name: formData.name,
                 year: formData.year,
                 regNumber: formData.regNumber
-              });
-              console.log(response)
+            });
+            console.log(response)
             if (response.status !== 200) {
                 throw new Error('Failed to join waitlist');
             }
-     
+
             setSuccess(true);
         } catch (err) {
             setError(err.message);
         } finally {
             setLoading(false);
         }
-     };
+    };
 
     return (
         <AppShell bg="dark.6">
@@ -63,12 +71,13 @@ export function Landing() {
                 <Container size="lg">
                     <Stack align="center" justify="center">
                         <div style={{ maxWidth: '800px', textAlign: 'center' }}>
+                            <Image src={Logo} alt="DormDash Logo" fit='contain' height={260} />
                             <Title
                                 order={1}
                                 style={{
                                     fontSize: '4rem',
                                     lineHeight: 1.1,
-                                    marginBottom: '1.5rem',
+                                    marginBottom: '5rem',
                                     '@media (maxWidth: 768px)': {
                                         fontSize: '2rem',
                                     }
@@ -86,7 +95,7 @@ export function Landing() {
                             </Text>
                         </div>
 
-                        <Card withBorder radius="md" p="xl" bg="dark.7" style={{ width: '100%', maxWidth: '500px' }}>
+                        <Card ref={formRef} withBorder radius="md" p="xl" bg="dark.7" style={{ width: '100%', maxWidth: '500px' }}>
                             {!success ? (
                                 <form onSubmit={handleSubmit}>
                                     <Stack>
@@ -152,7 +161,10 @@ export function Landing() {
                                 <Stack align="center" spacing="md">
                                     <Title order={3}>You're In!</Title>
                                     <Text c="dimmed" ta="center">
-                                        Thanks for joining! Check your email for confirmation.
+                                        Thanks for joining! We've sent you a confirmation email.
+                                    </Text>
+                                    <Text size="sm" c="dimmed" ta="center" style={{ maxWidth: '90%' }}>
+                                        Can't find the email? Please check your junk folder, and add team@dormdash.app to your contacts to ensure you don't miss future updates!
                                     </Text>
                                 </Stack>
                             )}
@@ -218,6 +230,27 @@ export function Landing() {
                     <Text size="sm" c="dimmed" ta="center">© 2025 DormDash. All Rights Reserved.</Text>
                 </Group>
             </Container>
+            <Button
+                onClick={scrollToForm}
+                size="lg"
+                // rightSection={<ArrowRight size={20} />}
+                radius="xl"
+                style={{
+                    position: 'fixed',
+                    bottom: '2rem',
+                    right: '2rem',
+                    background: 'linear-gradient(45deg, #FF4B2B, #FF416C)',
+                    boxShadow: '0 4px 15px rgba(255, 75, 43, 0.35)',
+                    zIndex: 1000,
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                        transform: 'translateY(-2px)',
+                        boxShadow: '0 6px 20px rgba(255, 75, 43, 0.45)',
+                    }
+                }}
+            >
+                <ArrowDown/>
+            </Button>
         </AppShell>
     );
 }
