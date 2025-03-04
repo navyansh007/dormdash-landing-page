@@ -2,12 +2,13 @@ import {
     Container, Title, Text, Button, Card, SimpleGrid,
     Stack, TextInput, AppShell, Center, Divider,
     Box, ThemeIcon, Group, NumberInput,
-    Image
+    Image, Anchor
 } from '@mantine/core';
 import { ArrowRight, Utensils, Bike, Shield, ArrowDown } from 'lucide-react';
 import axios from 'axios';
 import { useRef, useState } from 'react';
 import Logo from './assets/SVG/4.2.svg'
+import { Link } from 'react-router-dom';
 
 export function Landing() {
 
@@ -228,6 +229,10 @@ export function Landing() {
             <Container size="lg">
                 <Group justify="center" py={32}>
                     <Text size="sm" c="dimmed" ta="center">© 2025 DormDash. All Rights Reserved.</Text>
+                    <Text size="sm" c="dimmed">|</Text>
+                    <Anchor component={Link} to="/privacy" size="sm" c="dimmed">
+                        Privacy Policy
+                    </Anchor>
                 </Group>
             </Container>
             <Button
