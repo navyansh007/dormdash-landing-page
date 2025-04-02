@@ -10,7 +10,7 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 // Reset password request
 export const resetPassword = async (email) => {
   return await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: window.location.origin + '/reset-password-confirm',
+    redirectTo: 'https://dormdash.app/reset-password-confirm',
   });
 };
 
